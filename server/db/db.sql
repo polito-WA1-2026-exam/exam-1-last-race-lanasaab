@@ -157,6 +157,6 @@ INSERT INTO events (description, effect) VALUES
 ('Coffee with a friend', 4);
 
 INSERT INTO games (user_id, start_station_id, destination_station_id, status, initial_coins, final_score, completed_at) VALUES
-(1, 5, 1, 'completed', 20, 25, '2026-06-01 14:30:00' ),
+(1, 5, 1, 'completed', 20, 25, '2026-06-01 14:30:00'),
 (2, 1, 2, 'completed', 20, 18, '2026-06-02 11:40:00');
 
