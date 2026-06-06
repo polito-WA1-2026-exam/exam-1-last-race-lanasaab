@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const db = new sqlite3.Database(
-  join(__dirname, "db", "database_v4.sqlite"),
+  join(__dirname, "db", "database_new.sqlite"),
   (err) => {
     if (err) {
       console.error("Database connection error:", err.message);

@@ -45,6 +45,7 @@ CREATE TABLE segments (
     station_a_id INTEGER NOT NULL,
     station_b_id INTEGER NOT NULL,
     UNIQUE(station_a_id, station_b_id),
+    CHECK(station_a_id < station_b_id),
     FOREIGN KEY(station_a_id) REFERENCES stations(id),
     FOREIGN KEY(station_b_id) REFERENCES stations(id)
 );
@@ -85,9 +86,9 @@ CREATE TABLE game_steps (
 );
 
 INSERT INTO users (id, username, hash, salt) VALUES
-(1, 'lana', '4e167380a911a33777555122d1df7a7605663675a6c4c34a648e9102c918340d2b0e6e73715c0a0c49516805167909292e73715c0a0c49516805167909292e73', '8c37a6b3303d938210332832537f828a'),
-(2, 'sara', '4e167380a911a33777555122d1df7a7605663675a6c4c34a648e9102c918340d2b0e6e73715c0a0c49516805167909292e73715c0a0c49516805167909292e73', '8c37a6b3303d938210332832537f828a'),
-(3, 'adam', '4e167380a911a33777555122d1df7a7605663675a6c4c34a648e9102c918340d2b0e6e73715c0a0c49516805167909292e73715c0a0c49516805167909292e73', '8c37a6b3303d938210332832537f828a');
+(1, 'lana', 'd66e3cb88a00968b5f82f39f167cfcdcb69e13c38152cdc364e556d100ea17f040d78ecc1ac24f5169c6d50e28f6202a16e4aaecdd8590dca778f492801bc5ff', 'dffd24b63221651121882d3420de87f4'),
+(2, 'sara', 'd66e3cb88a00968b5f82f39f167cfcdcb69e13c38152cdc364e556d100ea17f040d78ecc1ac24f5169c6d50e28f6202a16e4aaecdd8590dca778f492801bc5ff', 'dffd24b63221651121882d3420de87f4'),
+(3, 'adam', 'd66e3cb88a00968b5f82f39f167cfcdcb69e13c38152cdc364e556d100ea17f040d78ecc1ac24f5169c6d50e28f6202a16e4aaecdd8590dca778f492801bc5ff', 'dffd24b63221651121882d3420de87f4');
 
 INSERT INTO stations (id, name, arabic_title, landmark_name) VALUES
 (1, 'Beirut', 'بيروت', 'صخرة الروشة'),
@@ -134,18 +135,18 @@ INSERT INTO line_stations (line_id, station_id, position) VALUES
 
 INSERT INTO segments (station_a_id, station_b_id) VALUES
 (5, 10),
-(10, 6),
+(6, 10),
 (6, 8),
-(8, 1),
+(1, 8),
 (1, 2),
 (2, 3),
 (1, 12),
-(12, 9),
+(9, 12),
 (9, 11),
 (4, 7),
-(7, 1),
-(5, 4),
-(7, 2);
+(1, 7),
+(4, 5),
+(2, 7);
 
 INSERT INTO events (description, effect) VALUES
 ('Quiet journey through the cedars', 0),

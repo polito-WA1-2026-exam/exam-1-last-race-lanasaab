@@ -1,22 +1,25 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "description": "",
+  "keywords": [],
   "license": "ISC",
   "author": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "node initDb.js"
   },
   "dependencies": {
     "cors": "^2.8.6",
     "crypto": "^1.0.1",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
+    "morgan": "^1.11.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "sqlite3": "^6.0.1"
   },
-  "keywords": [],
-  "description": ""
+  "devDependencies": {}
 }
