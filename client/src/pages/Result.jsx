@@ -4,6 +4,7 @@ import { Container, Card, Button, Spinner, Alert } from "react-bootstrap";
 import { GameAPI } from "../api";
 import { Trophy, Home, RotateCcw, Coins, Sparkles } from "lucide-react";
 
+
 const Result = () => {
   const { gameId } = useParams();
   const navigate = useNavigate();
@@ -70,7 +71,11 @@ const Result = () => {
           align-items: center;
           position: relative;
         }
-
+        .journey-btn {
+          background: linear-gradient(135deg, #16a34a, #22c55e) !important;
+          border: none !important;
+          color: white !important;
+        }
         .result-card {
           position: relative;
           max-width: 620px;
@@ -350,6 +355,14 @@ const Result = () => {
               Play New Game
             </Button>
 
+              <Button
+              size="lg"
+              className="action-btn journey-btn d-flex align-items-center justify-content-center gap-2"
+              onClick={() => navigate(`/journey/${gameId}`)}
+            >
+            
+              View Your Journey
+            </Button>
             <Button
               size="lg"
               className="action-btn ranking-btn d-flex align-items-center justify-content-center gap-2"

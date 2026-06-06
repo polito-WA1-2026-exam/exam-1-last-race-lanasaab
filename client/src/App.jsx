@@ -17,7 +17,7 @@ import Setup from "./pages/Setup";
 import Planning from "./pages/Planning";
 import Execution from "./pages/Execution";
 import Result from "./pages/Result";
-
+import Journey from "./pages/Journey";
 import Navbar from "./components/Layout/Navbar";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -48,6 +48,7 @@ function AppContent() {
             <Route path="/planning/:gameId" element={<Planning />} />
             <Route path="/execution/:gameId" element={<Execution />} />
             <Route path="/result/:gameId" element={<Result />} />
+            <Route path="/journey/:gameId" element={<Journey />} />
           </Route>
 
           {/* Catch-all */}
