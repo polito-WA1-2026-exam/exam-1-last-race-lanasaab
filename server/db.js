@@ -10,12 +10,16 @@ const db = new sqlite3.Database(
   (err) => {
     if (err) {
       console.error("Database connection error:", err.message);
-    } else {
-      console.log("Connected to SQLite database.");
+      process.exit(1); // no point running without a DB
+    }
 
+    console.log("Connected to SQLite database.");
+
+    db.serialize(() => {
+      db.run("PRAGMA journal_mode = WAL");
       db.run("PRAGMA foreign_keys = ON");
       db.run("PRAGMA busy_timeout = 5000");
-    }
+    });
   }
 );
 

@@ -1,4 +1,5 @@
 PRAGMA foreign_keys = ON;
+
 DROP TABLE IF EXISTS game_steps;
 DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS segments;
@@ -59,7 +60,7 @@ CREATE TABLE games (
     user_id INTEGER NOT NULL,
     start_station_id INTEGER NOT NULL,
     destination_station_id INTEGER NOT NULL,
-    status TEXT NOT NULL,
+    status TEXT NOT NULL CHECK(status IN ('planning', 'completed', 'failed')),
     initial_coins INTEGER DEFAULT 20,
     final_score INTEGER,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
