@@ -18,35 +18,90 @@ const Navbar = () => {
   };
 
   return (
-    <RBNavbar bg="dark" variant="dark" expand="lg" sticky="top">
-      <Container>
-        <RBNavbar.Brand as={Link} to="/" className="d-flex align-items-center gap-2">
-          <TrainFront size={28} />
-          <span>Last Race</span>
+    <RBNavbar
+      variant="dark"
+      expand="lg"
+      className="navbar-custom position-absolute w-100 border-0"
+      style={{
+        zIndex: 1000,
+        background: "transparent",
+      }}
+    >
+      <Container fluid className="px-4 py-2">
+        <RBNavbar.Brand
+          as={Link}
+          to="/"
+          className="d-flex align-items-center gap-2 fw-bold text-white fs-4"
+        >
+          <TrainFront size={32} />
+          <span style={{ letterSpacing: "1px" }}>
+            LAST RACE
+          </span>
         </RBNavbar.Brand>
-        <RBNavbar.Toggle aria-controls="basic-navbar-nav" />
+
+        <RBNavbar.Toggle
+          aria-controls="basic-navbar-nav"
+          className="border-0 shadow-none"
+        />
+
         <RBNavbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Instructions</Nav.Link>
+          <Nav className="me-auto ms-4">
+            <Nav.Link
+              as={Link}
+              to="/instructions"
+              className="text-white-50 px-3"
+            >
+              Instructions
+            </Nav.Link>
+
             {user && (
               <>
-                <Nav.Link as={Link} to="/setup">New Game</Nav.Link>
-                <Nav.Link as={Link} to="/ranking">Ranking</Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/setup"
+                  className="text-white-50 px-3"
+                >
+                  New Game
+                </Nav.Link>
+
+                <Nav.Link
+                  as={Link}
+                  to="/ranking"
+                  className="text-white-50 px-3"
+                >
+                  Ranking
+                </Nav.Link>
               </>
             )}
           </Nav>
+
           <Nav className="align-items-center gap-3">
             {user ? (
               <>
-                <RBNavbar.Text className="text-light">
-                  Welcome, <strong>{user.username}</strong>
+                <RBNavbar.Text className="text-white-50 me-2">
+                  Navigator:{" "}
+                  <strong className="text-white">
+                    {user.username}
+                  </strong>
                 </RBNavbar.Text>
-                <Button variant="outline-danger" size="sm" onClick={handleLogout}>
+
+                <Button
+                  variant="outline-light"
+                  size="sm"
+                  className="rounded-pill px-4 border-2 fw-bold"
+                  onClick={handleLogout}
+                >
                   Logout
                 </Button>
               </>
             ) : (
-              <Button as={Link} to="/login" variant="primary" size="sm">
+              <Button
+                as={Link}
+                to="/login"
+                variant="light"
+                size="sm"
+                className="rounded-pill px-4 fw-bold shadow-sm"
+              >
                 Login
               </Button>
             )}
