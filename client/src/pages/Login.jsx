@@ -442,8 +442,8 @@ const Login = () => {
               </Form>
 
               <div className="test-users">
-                Try <strong>lana</strong>, <strong>sara</strong>, or{" "}
-                <strong>adam</strong>
+                Try <strong>lana</strong>, <strong>sara</strong>, <strong>adam</strong> or{" "}
+                <strong>professor</strong>
               </div>
             </Card.Body>
           </Card>

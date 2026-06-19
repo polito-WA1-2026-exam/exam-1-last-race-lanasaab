@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import { Card, Container } from "react-bootstrap";
 import { Info, Map as MapIcon, Timer, Coins, Plane } from "lucide-react";
 
 const Instructions = () => {
   const [flippedCard, setFlippedCard] = useState(null);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const toggleCard = (card) => {
     setFlippedCard(flippedCard === card ? null : card);
+  };
+
+  const handleStartJourney = () => {
+    if (user) {
+      navigate("/setup");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -362,7 +372,7 @@ const Instructions = () => {
               <div className="route-pill">
                 <span>Beirut → Baalbek → Tyre → Byblos...</span>
 
-                <button className="start-dot" onClick={() => navigate("/login")}>
+                <button className="start-dot" onClick={handleStartJourney}>
                   Start Journey →
                 </button>
               </div>

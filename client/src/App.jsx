@@ -8,6 +8,7 @@ import {
 
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ScrollToTop from "./utils/ScrollToTop";
 
 import Home from "./pages/Home";
 import Instructions from "./pages/Instructions";
@@ -63,6 +64,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
+        <ScrollToTop />
         <AppContent />
       </AuthProvider>
     </Router>
