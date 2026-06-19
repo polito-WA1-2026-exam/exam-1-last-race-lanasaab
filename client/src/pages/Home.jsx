@@ -13,6 +13,7 @@ const Home = () => {
       block: "start",
     });
   };
+  //changes
 
   return (
     <main className="home-page">
