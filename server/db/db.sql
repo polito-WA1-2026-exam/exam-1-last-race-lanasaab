@@ -162,3 +162,19 @@ INSERT INTO games (user_id, start_station_id, destination_station_id, status, in
 (1, 5, 1, 'completed', 20, 25, '2026-06-01 14:30:00'),
 (2, 1, 2, 'completed', 20, 18, '2026-06-02 11:40:00');
 
+INSERT INTO game_steps (
+    game_id,
+    step_order,
+    from_station_id,
+    to_station_id,
+    event_id,
+    coins_after_step
+) VALUES
+-- Game 1: Tripoli -> Batroun -> Byblos -> Jounieh -> Beirut
+(1, 0, 5, 10, 5, 23),
+(1, 1, 10, 6, 6, 25),
+(1, 2, 6, 8, 1, 25),
+(1, 3, 8, 1, 1, 25),
+
+-- Game 2: Beirut -> Sidon
+(2, 0, 1, 2, 2, 18);
