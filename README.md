@@ -107,17 +107,18 @@ All game APIs require authentication.
 * Username: `lana` — Password: `password`
 * Username: `sara` — Password: `password`
 * Username: `adam` — Password: `password`
+* Username: `professor` - password: `password` -> created by addUser.js
 
 ### Use of AI Tools
 
-I used AI tools to clarify concepts, review code structure, improve styling ideas, and identify possible optimizations. All generated suggestions were manually checked, adapted, and tested against the project requirements, especially authentication, route validation, database constraints, and the game rules.
+I used AI tools to clarify concepts, review code structure, improve styling ideas (specifically the homepage), and identify possible optimizations. All generated suggestions were manually checked, adapted, and tested against the project requirements, especially authentication, route validation, database constraints, and the game rules.
 
 
 
 ### Notes
 My current implementation is suitable for the project size, 
-but I identified possible optimizations. For example, 
-the shortest-path BFS can use a head index instead of array.shift() to keep it O(V+E). 
+but I identified possible optimizations. 
+For example,the shortest-path BFS can use a head index instead of array.shift() to keep it O(V+E). 
 Route validation can be optimized by using Maps and Sets instead of repeated .find() calls. 
 Also, because the network topology is static, stations and segments can be cached in memory to avoid repeated database queries. 
 For game execution, random events can be prefetched and game steps can be inserted inside a transaction to reduce database round-trips. 
