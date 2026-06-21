@@ -1,9 +1,15 @@
 import express from "express";
+//imports middleaware to protect the game apis
 import { isLoggedIn } from "../middleware/auth.js";
+//imports DAO functions 
 import * as gameDao from "../dao/game-dao.js";
 import { getShortestDistance, validateRoute } from "../utils/game-utils.js";
 
 const router = express.Router();
+//we have here 3 apis
+//one for starting a new game
+//one for getting status of a game
+//one for  submitting route for a game
 
 // POST /api/games - Start a new game
 router.post("/", isLoggedIn, async (req, res) => {

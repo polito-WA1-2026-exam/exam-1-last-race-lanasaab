@@ -1,4 +1,12 @@
 import db from "../db.js";
+//create a new game with the given userId, startStationId, and destinationStationId
+//explanation of logic:
+// 1. The function returns a Promise that resolves with the newly created game object.
+// 2. It constructs an SQL INSERT statement to add a new row to the games table with the provided userId, startStationId, and destinationStationId.
+// 3. The status is set to 'planning' and initial_coins is set to 20.
+// 4. The db.run method executes the SQL statement, and if successful, resolves the Promise with the new game object containing its id and other details. 
+
+//create new game
 
 export function createGame(userId, startStationId, destinationStationId) {
   return new Promise((resolve, reject) => {
@@ -12,7 +20,7 @@ export function createGame(userId, startStationId, destinationStationId) {
       )
       VALUES (?, ?, ?, 'planning', 20)
     `;
-
+// execute sql statememt 
     db.run(sql, [userId, startStationId, destinationStationId], function (err) {
       if (err) {
         reject(err);
@@ -30,7 +38,11 @@ export function createGame(userId, startStationId, destinationStationId) {
     });
   });
 }
-
+// get game by id and join stations twice 
+//to get the start and dest station details
+//this returns useful data to frontend 
+//efficiency of this function is O(1) because it retrieves a single game by its primary key (id) 
+//and joins with the stations table, which is indexed.
 export function getGameById(gameId) {
   return new Promise((resolve, reject) => {
     const sql = `
@@ -62,7 +74,8 @@ export function getGameById(gameId) {
     });
   });
 }
-
+//returns all stations 
+//used for posting a new game
 export function getAllStations() {
   return new Promise((resolve, reject) => {
     const sql = `
@@ -80,7 +93,8 @@ export function getAllStations() {
     });
   });
 }
-
+//returns all segments
+//used for validating a route
 export function getAllSegments() {
   return new Promise((resolve, reject) => {
     const sql = `
@@ -115,7 +129,9 @@ export function getAllLineStations() {
     });
   });
 }
-
+//the server chooses the random event
+//to prevent cheating by client 
+//client should not be able to decide if it gets positive/negative event
 export function getRandomEvent() {
   return new Promise((resolve, reject) => {
     const sql = `
@@ -132,6 +148,9 @@ export function getRandomEvent() {
   });
 }
 
+//insert one row into game_steps table for each step in the route
+//store coins after each step 
+//so the exec page can show updated coin total after each event
 export function addGameStep(gameId, stepOrder, fromStationId, toStationId, eventId, coinsAfterStep) {
   return new Promise((resolve, reject) => {
     const sql = `
@@ -175,7 +194,7 @@ export function completeGame(gameId, finalScore) {
     });
   });
 }
-
+//for invalid route
 export function failGame(gameId) {
   return new Promise((resolve, reject) => {
     const sql = `
@@ -224,3 +243,8 @@ export function getGameSteps(gameId) {
     });
   });
 }
+
+// Efficiency:
+// getGameSteps is O(k), where k is the number of steps for the selected game.
+// The query retrieves all steps in one database call and joins stations/events for display.
+// For larger data, an index on game_steps(game_id) would improve lookup performance.
