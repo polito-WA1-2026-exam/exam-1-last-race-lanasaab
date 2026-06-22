@@ -110,6 +110,8 @@ All game APIs require authentication.
 * Game Execution Page: ![Execution Page](public/screenshots/execution1.png)
 * Game Execution Page: ![Execution Page](public/screenshots/execution2.png)
 
+-> After the user submits a valid route, the route is executed segment by segment. For each segment, the backend selects a random event from the events table. The event modifies the player's coins by a value between -4 and +4. The updated coin count is stored in game_steps and displayed in the execution page. After the last segment, the final score is computed and stored in the games table.
+
 ### User Credentials
 
 * Username: `lana` — Password: `password`
