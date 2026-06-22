@@ -1,16 +1,21 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { AuthAPI } from "../api";
 
+//global authentication
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  //for user
   const [user, setUser] = useState(null);
+  
+  //are we still checking the session?
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkSession = async () => {
       try {
         const currentUser = await AuthAPI.getCurrentUser();
+        //stores user globally
         setUser(currentUser);
       } catch (err) {
         setUser(null);
