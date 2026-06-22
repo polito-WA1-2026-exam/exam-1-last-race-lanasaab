@@ -1,6 +1,14 @@
 /**
  * Utility to calculate the shortest distance between two stations in segments.
  */
+// here I use BFS to find the shortest path in an unweighted graph represented by stations and segments.
+// explaining the algorithm:
+// 1. Build an adjacency list from the segments.
+// 2. Use a queue to perform BFS starting from the startId. 
+// 3. Keep track of visited stations to avoid cycles.
+// 4. For each station, check its neighbors and add them to the queue if they haven't been visited.
+// 5. If we reach the destId, return the distance. If the queue is exhausted without finding destId, return -1 (unreachable).
+
 export function getShortestDistance(stations, segments, startId, destId) {
   if (startId === destId) return 0;
 

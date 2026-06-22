@@ -17,7 +17,8 @@ passport.use(
           message: "Incorrect username",
         });
       }
-
+      //this calls user-dao.js
+      //it takes entered password + stored salt -> runs scrypt and compare hashes
       const valid = await checkPassword(user, password);
 
       if (!valid) {
@@ -36,10 +37,13 @@ passport.use(
   })
 );
 
+//runs once after login to store only the user id
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
+//runs on every authenticated request
+//browser sends cookie and passport calls getUserById(1)
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await getUserById(id);

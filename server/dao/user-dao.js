@@ -3,6 +3,9 @@ import crypto from "crypto";
 
 const KEYLEN = 64;
 
+//find user by username, used for login
+//find user by id, used for session management
+//verify password by hashing the provided password with the stored salt and comparing it to the stored hash
 export function getUserByUsername(username) {
   return new Promise((resolve, reject) => {
     const sql = "SELECT * FROM users WHERE username = ?";

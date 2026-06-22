@@ -26,7 +26,7 @@ router.post("/", isLoggedIn, async (req, res) => {
     while (distance < 3 && attempts < 100) {
       startStation = stations[Math.floor(Math.random() * stations.length)];
       destStation = stations[Math.floor(Math.random() * stations.length)];
-
+// calculate distance using BFS
       if (startStation.id !== destStation.id) {
         distance = getShortestDistance(stations, segments, startStation.id, destStation.id);
       }
@@ -36,8 +36,9 @@ router.post("/", isLoggedIn, async (req, res) => {
     if (distance < 3) {
       return res.status(500).json({ error: "Failed to generate a valid game" });
     }
-
+//if after 100 attempts we still can't find a valid game, return error
     const game = await gameDao.createGame(req.user.id, startStation.id, destStation.id);
+    //send game to client as json response
     res.json(game);
   } catch (err) {
     res.status(500).json({ error: "Failed to create game" });
@@ -54,12 +55,17 @@ router.get("/:id", isLoggedIn, async (req, res) => {
 
   try {
     const game = await gameDao.getGameById(gameId);
+    //fetches game from database using DAO function
     if (!game) return res.status(404).json({ error: "Game not found" });
     
     // Safety: only owner can see their game
+    //handles missing or invalid game id
+    // and checks if the user is the owner of the game
     if (game.userId !== req.user.id) return res.status(403).json({ error: "Forbidden" });
 
     // If completed/failed, include steps
+    // user cannot see the steps of a game that is still in planning phase, 
+    // only after submission
     if (game.status !== 'planning') {
       const steps = await gameDao.getGameSteps(game.id);
       game.steps = steps;
@@ -72,13 +78,15 @@ router.get("/:id", isLoggedIn, async (req, res) => {
 });
 
 // POST /api/games/:id/submit - Submit route
+//game execution endpoint
+
 router.post("/:id/submit", isLoggedIn, async (req, res) => {
   const gameId = Number(req.params.id);
-
+//reads the game id
   if (!Number.isInteger(gameId) || gameId <= 0) {
     return res.status(400).json({ error: "Invalid game id" });
   }
-
+//validates game id
   const { route } = req.body; // Array of { fromId, toId }
 
   // Basic validation
@@ -87,6 +95,9 @@ router.post("/:id/submit", isLoggedIn, async (req, res) => {
   }
 
   try {
+    //cheks if the game exists, if the user is the owner, and if the game is still in planning phase
+    //if game doesnt exist, return 404
+    //prevents submitting game twice by using the status field in the games table
     const game = await gameDao.getGameById(gameId);
     if (!game) return res.status(404).json({ error: "Game not found" });
     if (game.userId !== req.user.id) return res.status(403).json({ error: "Forbidden" });
@@ -94,7 +105,7 @@ router.post("/:id/submit", isLoggedIn, async (req, res) => {
 
     const lineStations = await gameDao.getAllLineStations();
     const segments = await gameDao.getAllSegments();
-
+    //the server checks the actual database 
     const isValid = validateRoute(route, game.startStationId, game.destinationStationId, lineStations, segments);
 
     if (!isValid) {
@@ -103,7 +114,11 @@ router.post("/:id/submit", isLoggedIn, async (req, res) => {
     }
 
     // Process route with random events
-    let currentCoins = game.initialCoins;
+    //start with 20 coins
+    //loop over selected segment
+    //randomly select an event for each segment and update the coin count
+    //store step in game_steps 
+    //update game status to completed and store final score
     const steps = [];
 
     for (let i = 0; i < route.length; i++) {
@@ -143,3 +158,12 @@ router.post("/:id/submit", isLoggedIn, async (req, res) => {
 });
 
 export default router;
+
+// Efficiency:
+// POST /api/games fetches the static topology and may run BFS several times;
+// for this small network it is efficient, but topology could be cached.
+// GET /api/games/:id is efficient because it fetches one game by primary key;
+// if completed, it also fetches k journey steps.
+// POST /api/games/:id/submit is O(k) in the route length for event processing,
+// while validation can be optimized by precomputing Maps/Sets instead of repeated array scans.
+// A future optimization would be inserting all game_steps inside a transaction.

@@ -1,5 +1,6 @@
 import db from "../db.js";
-
+//this is fpr fetching the full network of lines and stations in a single query, 
+// which is more efficient than multiple queries for lines, stations, and line_stations separately.
 export function getFullNetwork() {
   return new Promise((resolve, reject) => {
     const sql = `

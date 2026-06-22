@@ -1,6 +1,9 @@
 import express from "express";
+//to log http requests to the console
 import morgan from "morgan";
+//for middleware
 import cors from "cors";
+//this allows server to store login sessions
 import session from "express-session";
 import passport from "./authentication/passport.js";
 
@@ -14,7 +17,9 @@ const app = express();
 const port = 3001;
 
 // Middleware
+//logs all incoming requests to the console for debugging and monitoring
 app.use(morgan("dev"));
+//allows express to read JSON request bodies
 app.use(express.json());
 
 const corsOptions = {
