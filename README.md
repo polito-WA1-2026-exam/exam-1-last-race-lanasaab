@@ -107,10 +107,13 @@ All game APIs require authentication.
 * Ranking Page: ![Ranking Page](public/screenshots/ranking1.png)
 * Ranking Page: ![Ranking Page](public/screenshots/ranking2.png)
 * Game Planning Page: ![Planning Page](public/screenshots/planning.png)
+* Game Planning Page: ![Planning Page](public/screenshots/planning2.png)
 * Game Execution Page: ![Execution Page](public/screenshots/execution1.png)
 * Game Execution Page: ![Execution Page](public/screenshots/execution2.png)
+* Your Journey: ![Journey Page](public/screenshots/journey.png)
 
--> After the user submits a valid route, the route is executed segment by segment. For each segment, the backend selects a random event from the events table. The event modifies the player's coins by a value between -4 and +4. The updated coin count is stored in game_steps and displayed in the execution page. After the last segment, the final score is computed and stored in the games table.
+* Notes: - Execution: After the user submits a valid route, the route is executed segment by segment. For each segment, the backend selects a random event from the events table. The event modifies the player's coins by a value between -4 and +4. The updated coin count is stored in game_steps and displayed in the execution page. After the last segment, the final score is computed and stored in the games table.
+- Wanna discover lebanon? Click on journey after you finish your game!
 
 ### User Credentials
 

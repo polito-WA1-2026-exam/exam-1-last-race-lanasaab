@@ -6,7 +6,7 @@ export const cityInfo = {
       "Raouché Rock is one of Beirut’s most famous coastal landmarks and a symbol of the city.",
   },
   Sidon: {
-    image: "/images/sidon.png",
+    image: "/images/saida.png",
     title: "قلعة صيدا البحرية",
     description:
       "Sidon Sea Castle is a historic fortress built on a small island near the old city.",
