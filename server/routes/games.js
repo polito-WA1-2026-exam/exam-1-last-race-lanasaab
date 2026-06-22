@@ -119,6 +119,7 @@ router.post("/:id/submit", isLoggedIn, async (req, res) => {
     //randomly select an event for each segment and update the coin count
     //store step in game_steps 
     //update game status to completed and store final score
+    let currentCoins = game.initialCoins;
     const steps = [];
 
     for (let i = 0; i < route.length; i++) {
