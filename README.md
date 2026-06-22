@@ -95,12 +95,20 @@ All game APIs require authentication.
 * `Journey`: Displays the route history with Lebanese city information.
 * `Ranking`: Displays the leaderboard.
 
+### Additional Components
+* `Hero Section`
+* `ArrivalExperience`
+* `Network Visualization Components`
+
 ## 3. Overall
 
 ### Screenshots
 
-* Ranking Page: [insert image link committed in repository]
-* Game Execution Page: [insert image link committed in repository]
+* Ranking Page: ![Ranking Page](public/screenshots/ranking1.png)
+* Ranking Page: ![Ranking Page](public/screenshots/ranking2.png)
+* Game Planning Page: ![Planning Page](public/screenshots/planning.png)
+* Game Execution Page: ![Execution Page](public/screenshots/execution1.png)
+* Game Execution Page: ![Execution Page](public/screenshots/execution2.png)
 
 ### User Credentials
 
@@ -116,10 +124,18 @@ I used AI tools to clarify concepts, review code structure, improve styling idea
 
 
 ### Notes
-My current implementation is suitable for the project size, 
-but I identified possible optimizations. 
-For example,the shortest-path BFS can use a head index instead of array.shift() to keep it O(V+E). 
-Route validation can be optimized by using Maps and Sets instead of repeated .find() calls. 
-Also, because the network topology is static, stations and segments can be cached in memory to avoid repeated database queries. 
-For game execution, random events can be prefetched and game steps can be inserted inside a transaction to reduce database round-trips. 
-Finally, adding indexes on frequently queried columns like games.user_id, games.status, and segment station IDs would improve database performance.
+
+* The current implementation is fully suitable for the project size and requirements.
+
+* Potential future optimizations include:
+
+- Replacing BFS queue.shift() with a queue index to preserve O(V+E) complexity.
+- Caching the network topology in memory because the metro network is static.
+- Using Maps/Sets to reduce repeated searches during route validation.
+- Wrapping game-step insertions in database transactions.
+- Adding database indexes on frequently queried columns such as:
+  -games.user_id
+  -games.status
+  -game_steps.game_id
+  -segments.station_a_id
+  -segments.station_b_id
